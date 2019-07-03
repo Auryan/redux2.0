@@ -9,28 +9,42 @@ import {resultNum} from "../actions/calcuate";
 class MainView extends Component {
 
 
-    state = {currentState: null, previousState: null};
+    state = {currentOP: null};
 
     handleNumOnclick = (num) => {
         const {inputValue, inputNum} = this.props;
 
         console.log('num', num);
-        // previousValue(preNum);
         inputValue(inputNum * 10 + num);
     };
 
     handleOPonclick = (op) => {
         console.log("op", op);
-        const {inputNum, preNum, actionOfValue} = this.props;
-        this.setState({previousState: this.state.currentState});
-        this.setState({currentState: op});
+        const {inputNum, preNum, actionOfValue, resultValue} = this.props;
+        this.setState({currentOP: op});
+
+        console.log("current OP", this.state.currentOP);
 
         if (op === 'EQUAL') {
-            switch (this.state.previousState) {
+            switch (this.state.currentOP) {
                 case 'ADD':
-                    resultNum(inputNum+preNum);
+                    resultValue(preNum + inputNum);
                     break;
+                case 'MINUS':
+                    resultValue(preNum - inputNum);
+                    break;
+                case 'TIMES':
+                    resultValue(preNum * inputNum);
+                    break;
+                case 'DIVIDE':
+                    resultValue(preNum / inputNum);
+                    break;
+                default:
+                    console.log('opreator load error');
             }
+        } else if (op === 'CLEAN') {
+            actionOfValue(null, 0, 0);
+            resultValue(0);
         } else {
             actionOfValue(op, 0, inputNum);
         }
@@ -66,13 +80,14 @@ class MainView extends Component {
                 </div>
 
                 <div>
-                    <span>{opreator}</span>
+                    {/*<span>{opreator}</span>*/}
                     <span>{result}</span>
                     <button onClick={() => this.handleOPonclick('ADD')}> +</button>
                     <button onClick={() => this.handleOPonclick('MINUS')}> -</button>
                     <button onClick={() => this.handleOPonclick('TIMES')}> X</button>
                     <button onClick={() => this.handleOPonclick('DIVIDE')}> /</button>
                     <button onClick={() => this.handleOPonclick('EQUAL')}> =</button>
+                    <button onClick={() => this.handleOPonclick('CLEAN')}> CLEAN</button>
 
                 </div>
             </div>
@@ -110,6 +125,7 @@ const mapDispatchToProps = (dispatch) => {
         resultValue: (result) => {
             dispatch(resultNum(result));
         }
+
     };
 
 };

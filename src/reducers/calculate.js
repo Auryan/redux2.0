@@ -7,7 +7,6 @@ const calculate = (state = {num: 0, inputNum: 0, preNum: 0, result: 0, currentOP
                 currentOP: action.op,
                 inputNum: action.inputNum,
                 preNum: action.preNum,
-
             };
 
         case 'INPUT_CAL':
@@ -21,7 +20,6 @@ const calculate = (state = {num: 0, inputNum: 0, preNum: 0, result: 0, currentOP
         case 'RLT_CAL':
             console.log('reducer state', {...state, result: action.result});
             return {...state, result: action.result};
-
 
         default:
             return state;

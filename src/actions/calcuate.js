@@ -21,9 +21,10 @@ export const previousNum = (pre_Num, inputNum) => {
     }
 };
 
-export const  resultNum = (resultNum) => {
-    return{
+export const resultNum = (result) => {
+    return {
         type: 'RLT_CAL',
-        resultNum,
+        result,
     }
 };
+

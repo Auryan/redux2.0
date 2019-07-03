@@ -9,7 +9,6 @@ import {resultNum} from "../actions/calcuate";
 class MainView extends Component {
 
 
-    state = {currentOP: null};
 
     handleNumOnclick = (num) => {
         const {inputValue, inputNum} = this.props;
@@ -20,13 +19,10 @@ class MainView extends Component {
 
     handleOPonclick = (op) => {
         console.log("op", op);
-        const {inputNum, preNum, actionOfValue, resultValue} = this.props;
-        this.setState({currentOP: op});
-
-        console.log("current OP", this.state.currentOP);
+        const {inputNum, preNum, actionOfValue, resultValue,opreator} = this.props;
 
         if (op === 'EQUAL') {
-            switch (this.state.currentOP) {
+            switch (opreator) {
                 case 'ADD':
                     resultValue(preNum + inputNum);
                     break;

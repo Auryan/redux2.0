@@ -11,37 +11,37 @@ class MainView extends Component {
 
 
     handleNumOnclick = (num) => {
-        const {inputValue, inputNum, areNumClick} = this.props;
+        const {inputValue, inputNum} = this.props;
 
         console.log('num', num);
-        console.log("areNumClick", areNumClick);
-        inputValue(inputNum * 10 + num, areNumClick);
+        inputValue(inputNum * 10 + num, true);
     };
 
     handleOPonclick = (op) => {
         console.log("op", op);
-        const {inputNum, preNum, actionOfValue, resultValue, opreator} = this.props;
+        const {inputNum, preNum, actionOfValue, resultValue, opreator,inputValue} = this.props;
 
         if (op === 'EQUAL') {
             switch (opreator) {
                 case 'ADD':
-                    resultValue(preNum + inputNum);
+                    resultValue(preNum + inputNum, true);
                     break;
                 case 'MINUS':
-                    resultValue(preNum - inputNum);
+                    resultValue(preNum - inputNum, true);
                     break;
                 case 'TIMES':
-                    resultValue(preNum * inputNum);
+                    resultValue(preNum * inputNum, true);
                     break;
                 case 'DIVIDE':
-                    resultValue(preNum / inputNum);
+                    resultValue(preNum / inputNum, true);
                     break;
                 default:
                     console.log('opreator load error');
             }
         } else if (op === 'CLEAN') {
             actionOfValue(null, 0, 0);
-            resultValue(0);
+            resultValue(0, false);
+            inputValue(0,false);
         } else {
             actionOfValue(op, 0, inputNum);
         }
@@ -55,6 +55,7 @@ class MainView extends Component {
     render() {
 
         const {inputNum, preNum, opreator, result, areEqualClick, areNumClick} = this.props;
+        console.log('areEqualclick', areEqualClick);
 
         console.log('this.props.state.num', this.props.num);
 
@@ -63,15 +64,26 @@ class MainView extends Component {
             <div>
                 <div className="calculaterBox">
                     <div className="displayNum">
-                        <span>{inputNum}</span>
-                        {areEqualClick &&
-                        <span>{result}</span>
-                        }
+                        {/*{!areEqualClick &&*/}
+                        {/*<span>{inputNum}</span>*/}
+                        {/*}*/}
+                        {/*{areEqualClick &&*/}
+                        {/*<span>{result}</span>*/}
+                        {/*}*/}
+
+                        {areEqualClick ?
+                             (<span>{result}</span>) : (
+                                 <span>{inputNum}</span>)}
                     </div>
 
                     <div className="firstLine">
                         <button className="fuHaoFirstLine"
-                                onClick={() => this.handleOPonclick('CLEAN')}> AC {areNumClick && <span>C</span>}
+                                onClick={() => this.handleOPonclick('CLEAN')}>
+                            {/*{!areNumClick && 'AC'}*/}
+                            {/*{areNumClick && 'C'}*/}
+
+                            {areNumClick ?
+                                ('C') : ('AC')}
                         </button>
                         <button className="fuHaoFirstLine">+/-</button>
                         <button className="fuHaoFirstLine">%</button>
@@ -130,7 +142,8 @@ const mapStateToProps = (state) => {
         preNum: state.calculate.preNum,
         opreator: state.calculate.currentOP,
         result: state.calculate.result,
-
+        areEqualClick: state.calculate.areEqualClick,
+        areNumClick: state.calculate.areNumClick,
     };
 };
 

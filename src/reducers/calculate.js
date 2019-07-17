@@ -13,7 +13,7 @@ const calculate = (state = {num: 0, inputNum: 0, preNum: 0, result: 0,
             // input number call
         case 'INPUT_CAL':
             console.log('reducer state', {...state, inputNum: action.inputNum, areNumClick: true});
-            return {...state, inputNum: action.inputNum, areNumClick: true};
+            return {...state, inputNum: action.inputNum, areNumClick: action.areNumClick};
 
             // private num call
         case 'PRE_CAL':
@@ -23,7 +23,7 @@ const calculate = (state = {num: 0, inputNum: 0, preNum: 0, result: 0,
             // result call
         case 'RLT_CAL':
             console.log('Reducer of Result state', {...state, result: action.result, areEqualClick: true});
-            return {...state, result: action.result, areEqualClick: true};
+            return {...state, result: action.result, areEqualClick: action.areEqualClick};
 
         default:
             return state;

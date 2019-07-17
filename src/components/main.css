@@ -1,0 +1,122 @@
+* {
+    padding: 0;
+    margin: 0;
+    /*border: red 1px solid;*/
+    width: 140px;
+    /*background-color: red;*/
+    color: white;
+    font-family: Arial;
+}
+
+.calculaterBox{
+    position: relative;
+    margin-left: 154px;
+    border: 0;
+    height: 212px;
+    width: 134px;
+    background-color: black;
+}
+
+.displayNum {
+    position: relative;
+    border: 0;
+    height: 50px;
+    width: 124px;
+    text-align: right;
+    vertical-align: bottom;
+}
+.displayNum > span{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 124px;
+
+}
+
+.firstLine {
+    position: relative;
+
+}
+
+.firstLine > button {
+    margin: 3px;
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    border: 0;
+}
+
+.zero {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    margin: 3px;
+    border: 0;
+
+}
+
+.zero:first-child {
+    width: 58px;
+}
+
+.fuHaoFirstLine {
+    background-color: #A5A5A5;
+    color: black;
+}
+
+.numberColor {
+    background-color: #333333;
+}
+
+.symboColor {
+    background-color: #FE9500;
+}
+
+button:focus{
+    border: none;
+    outline: none;
+}
+
+button:hover{
+    /*background-color: white;*/
+    /*opacity: 0.3;*/
+   background-color: rgba(255,255,255,0.3)
+}
+
+
+.symboColor:focus {
+    background-color: white;
+    color: #FE9500;
+}
+
+.symboColor:hover{
+    background-color: #FFCE99;
+}
+
+.fuHaoFirstLine:hover{
+    background-color: white;
+    /*opacity: 0.3;*/
+    color: black;
+}
+
+.numberColor:active{
+    background-color: #A6A6A6;
+    opacity: 0.9;
+    color: white;
+}
+
+.equalBTN{
+    background-color: #FE9500;
+}
+
+.equalBTN:hover{
+    background-color: #FFCE99;
+}
+
+.equalBTN:active{
+    background-color: #FFCE99;
+    opacity: 0.9;
+    color: white;
+}

@@ -5,21 +5,22 @@ import {recivedNum} from '../actions/calcuate';
 import {inputNum} from "../actions/calcuate";
 import {previousNum} from "../actions/calcuate";
 import {resultNum} from "../actions/calcuate";
+import "./main.css"
 
 class MainView extends Component {
 
 
-
     handleNumOnclick = (num) => {
-        const {inputValue, inputNum} = this.props;
+        const {inputValue, inputNum, areNumClick} = this.props;
 
         console.log('num', num);
-        inputValue(inputNum * 10 + num);
+        console.log("areNumClick", areNumClick);
+        inputValue(inputNum * 10 + num, areNumClick);
     };
 
     handleOPonclick = (op) => {
         console.log("op", op);
-        const {inputNum, preNum, actionOfValue, resultValue,opreator} = this.props;
+        const {inputNum, preNum, actionOfValue, resultValue, opreator} = this.props;
 
         if (op === 'EQUAL') {
             switch (opreator) {
@@ -53,37 +54,66 @@ class MainView extends Component {
 
     render() {
 
-        const {inputNum, preNum, opreator, result} = this.props;
+        const {inputNum, preNum, opreator, result, areEqualClick, areNumClick} = this.props;
 
         console.log('this.props.state.num', this.props.num);
 
+
         return (
             <div>
-                <div>
-                    <span>{inputNum}</span>
-                    <button onClick={() => this.handleNumOnclick(0)}>0</button>
-                    <button onClick={() => this.handleNumOnclick(1)}>1</button>
-                    <button onClick={() => this.handleNumOnclick(2)}>2</button>
-                    <button onClick={() => this.handleNumOnclick(3)}>3</button>
-                    <button onClick={() => this.handleNumOnclick(4)}>4</button>
-                    <button onClick={() => this.handleNumOnclick(5)}>5</button>
-                    <button onClick={() => this.handleNumOnclick(6)}>6</button>
-                    <button onClick={() => this.handleNumOnclick(7)}>7</button>
-                    <button onClick={() => this.handleNumOnclick(8)}>8</button>
-                    <button onClick={() => this.handleNumOnclick(9)}>9</button>
+                <div className="calculaterBox">
+                    <div className="displayNum">
+                        <span>{inputNum}</span>
+                        {areEqualClick &&
+                        <span>{result}</span>
+                        }
+                    </div>
+
+                    <div className="firstLine">
+                        <button className="fuHaoFirstLine"
+                                onClick={() => this.handleOPonclick('CLEAN')}> AC {areNumClick && <span>C</span>}
+                        </button>
+                        <button className="fuHaoFirstLine">+/-</button>
+                        <button className="fuHaoFirstLine">%</button>
+                        <button className="symboColor" onClick={() => this.handleOPonclick('DIVIDE')}>÷</button>
+                    </div>
+
+                    <div className="firstLine">
+                        <button className="numberColor" onClick={() => this.handleNumOnclick(7)}>7</button>
+                        <button className="numberColor" onClick={() => this.handleNumOnclick(8)}>8</button>
+                        <button className="numberColor" onClick={() => this.handleNumOnclick(9)}>9</button>
+                        <button className="symboColor" onClick={() => this.handleOPonclick('TIMES')}> X</button>
+
+                    </div>
+
+                    <div className="firstLine">
+                        <button className="numberColor" onClick={() => this.handleNumOnclick(4)}>4</button>
+                        <button className="numberColor" onClick={() => this.handleNumOnclick(5)}>5</button>
+                        <button className="numberColor" onClick={() => this.handleNumOnclick(6)}>6</button>
+                        <button className="symboColor" onClick={() => this.handleOPonclick('MINUS')}> -</button>
+                    </div>
+                    <div className="firstLine">
+                        <button className="numberColor" onClick={() => this.handleNumOnclick(1)}>1</button>
+                        <button className="numberColor" onClick={() => this.handleNumOnclick(2)}>2</button>
+                        <button className="numberColor" onClick={() => this.handleNumOnclick(3)}>3</button>
+                        <button className="symboColor" onClick={() => this.handleOPonclick('ADD')}> +</button>
+
+                    </div>
+
+                    <div>
+                        <button className="zero numberColor" onClick={() => this.handleNumOnclick(0)}>0</button>
+                        <button className="zero numberColor" onClick={() => this.handleNumOnclick(0)}>.</button>
+                        <button className="zero equalBTN" onClick={() => this.handleOPonclick('EQUAL')}> =</button>
+                    </div>
+
+                    <span>{result}</span>
+
                     <span>{preNum}</span>
 
                 </div>
 
                 <div>
-                    {/*<span>{opreator}</span>*/}
-                    <span>{result}</span>
-                    <button onClick={() => this.handleOPonclick('ADD')}> +</button>
-                    <button onClick={() => this.handleOPonclick('MINUS')}> -</button>
-                    <button onClick={() => this.handleOPonclick('TIMES')}> X</button>
-                    <button onClick={() => this.handleOPonclick('DIVIDE')}> /</button>
-                    <button onClick={() => this.handleOPonclick('EQUAL')}> =</button>
-                    <button onClick={() => this.handleOPonclick('CLEAN')}> CLEAN</button>
+                    <span>{opreator}</span>
 
                 </div>
             </div>
@@ -110,16 +140,16 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(recivedNum(op, inputNum, preNum));
         },
 
-        inputValue: (value) => {
-            dispatch(inputNum(value));
+        inputValue: (value, areNumClick) => {
+            dispatch(inputNum(value, areNumClick));
         },
 
         previousValue: (value) => {
             dispatch(previousNum(value));
         },
 
-        resultValue: (result) => {
-            dispatch(resultNum(result));
+        resultValue: (result, areEqualClick) => {
+            dispatch(resultNum(result, areEqualClick));
         }
 
     };
